@@ -1,0 +1,2 @@
+order-accept: quyền chấp nhận đơn
+order-refuse: quyền từ chối đơn

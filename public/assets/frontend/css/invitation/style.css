@@ -1,0 +1,288 @@
+@font-face {
+    font-family: 'pacifico-regular'; /* Tên bạn đặt */
+    src: url('/assets/frontend/font/pacifico-regular.woff2') format('woff2');
+    font-weight: normal; /* Có thể điều chỉnh */
+    font-style: normal;  /* Có thể điều chỉnh */
+}
+*,
+* :before,
+*:after {
+    box-sizing: border-box;
+}
+html,
+body {
+    background: #e3dfd8;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+html {
+    height: 100%;
+    overflow-x: hidden;
+}
+body {
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2em 0;
+    line-height: 1.5em;
+    overflow-x: hidden;
+
+}
+
+.book {
+    transition: opacity 0.4s 0.2s;
+}
+
+.page {
+    width: 60vw;
+    height: 37.95vw;
+    background-color: #fff;
+    float: left;
+    margin-bottom: 0.5em;
+}
+.page:first-child {
+    float: right;
+}
+.page:nth-child(even) {
+    clear: both;
+}
+.bound {
+    perspective: 250vw;
+}
+
+.bound .pages {
+    width: 60vw;
+    height: 37.95vw;
+    position: relative;
+    transform: rotateX(12deg);
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 4px;
+    box-shadow: 0 0 0 1px #e3dfd8;
+}
+.bound .page {
+    float: none;
+    clear: none;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    width: 30vw;
+    height: 37.95vw;
+    transform-origin: 0 0;
+    transition: transform 1.4s;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.bound .page:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.7s;
+    z-index: 2;
+}
+.bound .page:nth-child(odd) {
+    pointer-events: all;
+    transform: rotateY(0deg);
+    right: 0;
+    border-radius: 0 4px 4px 0;
+}
+.bound .page:nth-child(odd):hover {
+    transform: rotateY(-10deg);
+}
+.bound .page:nth-child(odd):hover:before {
+    background: rgba(0, 0, 0, 0.03);
+}
+.bound .page:nth-child(odd):before {
+    background: rgba(0, 0, 0, 0);
+}
+.bound .page:nth-child(even) {
+    pointer-events: none;
+    transform: rotateY(180deg);
+    transform-origin: 100% 0;
+    left: 0;
+    border-radius: 4px 0 0 4px;
+}
+.bound .page:nth-child(even):before {
+    background: rgba(0, 0, 0, 0.2);
+}
+.bound .page.grabbing {
+    transition: none;
+}
+.bound .page.flipped:nth-child(odd) {
+    pointer-events: none;
+    transform: rotateY(-180deg);
+}
+.bound .page.flipped:nth-child(odd):before {
+    background: rgba(0, 0, 0, 0.2);
+}
+.bound .page.flipped:nth-child(even) {
+    pointer-events: all;
+    transform: rotateY(0deg);
+}
+.bound .page.flipped:nth-child(even):hover {
+    transform: rotateY(10deg);
+}
+.bound .page.flipped:nth-child(even):hover:before {
+    background: rgba(0, 0, 0, 0.03);
+}
+.bound .page.flipped:nth-child(even):before {
+    background: rgba(0, 0, 0, 0);
+}
+
+.page {
+    color: transparent;
+    background: left top no-repeat;
+    background-size: cover;
+}
+
+.page:nth-child(3),
+.page:nth-child(5),
+.page:nth-child(7),
+.page:nth-child(9),
+.page:nth-child(11),
+.page:nth-child(13),
+.page:nth-child(15),
+.page:nth-child(17),
+.page:nth-child(19),
+.page:nth-child(21),
+.page:nth-child(23),
+.page:nth-child(25),
+.page:nth-child(27),
+.page:nth-child(29),
+.page:nth-child(31) {
+    background-position: right top;
+}
+.page:first-child{
+    background-image: url('/assets/frontend/image/wedding_page_first.png');
+}
+.page:nth-child(2),.page:nth-child(3) {
+    background-image: url('/assets/frontend/image/wedding_page_custom_2.png');
+}
+.page:nth-child(4),.page:nth-child(5) {
+    background-image: url('/assets/frontend/image/wedding_page_main.jpg');
+}
+.page:nth-child(6),.page:nth-child(7) {
+    background-image: url('/assets/frontend/image/wedding_page_end.jpg');
+}
+.page:nth-child(1) div.page-text{
+    opacity: 0;
+}
+.page:nth-child(1) div.page-text,.page:nth-child(3) div.page-text{
+    position: absolute;
+    color: #0a0e14;
+    bottom: 20%;
+    left: 50%;
+    transform: translate(-50%,-20%);
+    font-family: 'pacifico-regular', serif;
+}
+.page_loader {
+    background: #e3dfd8;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+
+    left: 0;
+    top: 0;
+    z-index: 99999;
+}
+#loader {
+    display: block;
+    position: relative;
+    left: calc(50% - 40px);
+    top: 50%;
+    width: 160px;
+    height: 20px;
+    margin: -38px 0 0 -38px;
+}
+
+@media (max-width: 1024px){
+    html {
+        height: 50%;
+    }
+    .page {
+        width: 90vw;
+        height: 56.92vw;
+
+    }
+    .bound .pages {
+        width: 90vw;
+        height: 56.92vw;
+
+    }
+    .bound .page {
+
+        width: 45vw;
+        height: 56.92vw;
+
+    }
+
+}
+@media (max-width: 468px){
+    .page:nth-child(1) div.page-text,.page:nth-child(3) div.page-text{
+        bottom: 17%;
+        transform: translate(-50%,-17%);
+        font-size: 8px;
+
+    }
+}
+@media (max-width: 390px){
+    .page:nth-child(1) div.page-text,.page:nth-child(3) div.page-text{
+        bottom: 16%;
+        transform: translate(-50%,-16%);
+        font-size: 8px;
+
+    }
+}
+
+/*music*/
+@-webkit-keyframes biilogo-pulse {
+    from {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+    50% {
+        -webkit-transform: scale3d(0.95, 0.95, 0.95);
+        transform: scale3d(0.95, 0.95, 0.95);
+    }
+    to {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+@keyframes biilogo-pulse {
+    from {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+    50% {
+        -webkit-transform: scale3d(0.95, 0.95, 0.95);
+        transform: scale3d(0.95, 0.95, 0.95);
+    }
+    to {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+.bii-player{position: fixed;bottom: 70px;left: 50px;width: 40px;height: 40px;z-index:99999;display:none;}
+.bii-player .playerIcon{cursor:pointer;display: block;width:40px;height:40px;-webkit-border-radius: 50%;-moz-border-radius: 50%;-o-border-radius: 50%;-ms-border-radius: 50%;border-radius: 50%;background-color: #df4758;padding-top: 7px;padding-left: 9px;position:absolute;z-index: 2;}
+.bii-player:after{content: "";position: absolute;-webkit-border-radius: 50%;-moz-border-radius: 50%;-o-border-radius: 50%;-ms-border-radius: 50%;border-radius: 50%;z-index: -1;background-color: rgba(242, 59, 67, 0.3);width: 120%;height: 120%;left: -10%;top: -10%;-webkit-animation: biilogo-pulse 1s infinite;animation: biilogo-pulse 1s infinite;z-index: 1;}
+.bii-player img{width: 100%;z-index: 99999;position: absolute;cursor:pointer;}
+.bii-player.show-sec .bii-player-secondary{visibility: visible;}
+.bii-player.show-sec .bii-player-secondary-content{ transform: translate3d(0, 0, 0);}
+.bii-player-secondary{position: absolute;width: 310px;left: 25px;height: 50px;overflow: hidden;visibility: hidden;}
+.bii-player-secondary-content{display: flex;align-items: center;cursor:pointer;user-select: none;position: absolute;width: 310px;left: -25px;background: #fff;height: 40px;padding: 8px 11px 8px 50px;border: 1px solid #df4759;border-radius: 30px;z-index: 1;font-size:14px;transform: translate3d(-100%, 0, 0);transition: transform 175ms ease;font-family: arial;font-weight: 200;color: #000;}
+@media (max-width: 799px) {
+    .bii-player{bottom: 30px;left: 20px;}
+}
